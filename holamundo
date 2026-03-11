@@ -3,6 +3,23 @@
 int main() {
     printf("hola mundo\n");
 
+int numero1, numero2, suma;
+
+    printf("--- Calculadora de Suma ---\n");
+
+    // Solicitar el primer número
+    printf("Introduce el primer número: ");
+    scanf("%d", &numero1);
+
+    // Solicitar el segundo número
+    printf("Introduce el segundo número: ");
+    scanf("%d", &numero2);
+
+    // Realizar la operación
+    suma = numero1 + numero2;
+
+    // Mostrar el resultado
+    printf("\nLa suma de %d y %d es: %d\n", numero1, numero2, suma);
 
     return 0;
 
