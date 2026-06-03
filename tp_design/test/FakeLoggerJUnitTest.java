@@ -7,16 +7,16 @@ public class FakeLoggerJUnitTest {
     @Test
     public void recordsMessages() {
         FakeLogger logger = new FakeLogger();
-        logger.logInfo("hola");
-        logger.logWarning("error");
+        logger.logInfo("hi");
+        logger.logWarning("w");
         logger.logError("error");
-        logger.logDebug("test_error");
+        logger.logDebug("d");
 
         List<String> msgs = logger.getMessages();
         assertEquals(4, msgs.size());
         assertTrue(msgs.contains("INFO: hi"));
         assertTrue(msgs.contains("WARN: w"));
-        assertTrue(msgs.contains("ERROR: e"));
+        assertTrue(msgs.contains("ERROR: error"));
         assertTrue(msgs.contains("DEBUG: d"));
     }
 }
