@@ -25,8 +25,9 @@ runs:
 
     - name: Ejecutar script de tests
       shell: bash
+      working-directory: tp_design
       env:
-        TP_DESIGN_DEPS: $GITHUB_WORKSPACE/lib
+        TP_DESIGN_DEPS: ${{ github.workspace }}/lib
       run: |
         set -euo pipefail
         chmod +x run-tests.sh || true

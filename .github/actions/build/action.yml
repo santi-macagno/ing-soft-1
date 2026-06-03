@@ -12,6 +12,7 @@ runs:
 
     - name: Compilar fuentes (javac)
       shell: bash
+      working-directory: tp_design
       run: |
         set -euo pipefail
         mkdir -p out
