@@ -7,10 +7,10 @@ public class FakeLoggerJUnitTest {
     @Test
     public void recordsMessages() {
         FakeLogger logger = new FakeLogger();
-        logger.logInfo("hi");
-        logger.logWarning("w");
-        logger.logError("e");
-        logger.logDebug("d");
+        logger.logInfo("hola");
+        logger.logWarning("error");
+        logger.logError("error");
+        logger.logDebug("test_error");
 
         List<String> msgs = logger.getMessages();
         assertEquals(4, msgs.size());
