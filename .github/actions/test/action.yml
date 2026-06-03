@@ -1,5 +1,5 @@
 name: Test
-description: Corre la suite de tests con Maven
+description: Corre la suite de pruebas unitarias con Maven
 
 runs:
   using: composite
@@ -9,14 +9,8 @@ runs:
       with:
         java-version: '17'
         distribution: 'temurin'
+        cache: 'maven' # <- Optimización para no descargar dependencias de cero
 
     - name: Correr tests
       shell: bash
       run: mvn -B test
-
-    - name: Subir reporte de tests
-      if: always()
-      uses: actions/upload-artifact@v4
-      with:
-        name: test-reports
-        path: target/surefire-reports/
