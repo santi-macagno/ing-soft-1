@@ -9,14 +9,14 @@ public class FakeLoggerJUnitTest {
         FakeLogger logger = new FakeLogger();
         logger.logInfo("hi");
         logger.logWarning("w");
-        logger.logError("e");
+        logger.logError("error");
         logger.logDebug("d");
 
         List<String> msgs = logger.getMessages();
         assertEquals(4, msgs.size());
         assertTrue(msgs.contains("INFO: hi"));
         assertTrue(msgs.contains("WARN: w"));
-        assertTrue(msgs.contains("ERROR: e"));
+        assertTrue(msgs.contains("ERROR: error"));
         assertTrue(msgs.contains("DEBUG: d"));
     }
 }
