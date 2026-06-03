@@ -1,0 +1,10 @@
+services:
+  tp-tester:
+    build: .
+    image: tp_design_tester:latest
+    volumes:
+      - ./:/workspace:delegated
+    working_dir: /workspace
+    command: ["bash", "/workspace/run-tests.sh"]
+    tty: true
+
