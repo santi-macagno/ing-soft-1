@@ -4,11 +4,8 @@ on:
   push:
     tags:
       - 'v*.*.*'
-    # branches:
-    #   - main
 
 jobs:
-
   release:
     runs-on: ubuntu-latest
     permissions:
@@ -23,22 +20,19 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: Empaquetar JAR
-        run: mvn -B package -DskipTests
+      - name: Compilar fuentes (acción interna)
+        uses: ./.github/actions/build
 
+      - name: Empaquetar JAR desde out/
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p target
+          echo "Empaquetando clases en target/tp_design.jar"
+          jar --create --file target/tp_design.jar -C out .
 
-            - name: Configurar Java 17
-              uses: actions/setup-java@v4
-              with:
-                java-version: '17'
-                distribution: 'temurin'
-
-            - name: Compilar fuentes (acción interna)
-              uses: ./.github/actions/build
-
-            - name: Empaquetar JAR desde out/
-              run: |
-                set -euo pipefail
-                mkdir -p target
-                echo "Empaquetando clases en target/tp_design.jar"
-                jar --create --file target/tp_design.jar -C out .
+      - name: Publicar GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: target/*.jar
+          generate_release_notes: true
