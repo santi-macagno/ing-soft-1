@@ -22,7 +22,7 @@ public class logger {
         return LocalDateTime.now().format(formatter);
     }
 
-    //public void logWarning(String msg)
+    public void logWarning(String msg)
     {
         System.out.println("\u001B[33m" + getFormattedTime() + " [WARN] " + msg + "\u001B[0m\n"); //amarillo ansi
     }
