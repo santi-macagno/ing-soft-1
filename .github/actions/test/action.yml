@@ -1,5 +1,5 @@
 name: Test
-description: Corre la suite de pruebas unitarias con Maven
+description: Ejecuta la suite de pruebas del proyecto usando el script `run-tests.sh`.
 
 runs:
   using: composite
@@ -9,8 +9,25 @@ runs:
       with:
         java-version: '17'
         distribution: 'temurin'
-        cache: 'maven' # <- Optimización para no descargar dependencias de cero
 
-    - name: Correr tests
+    - name: Descargar dependencias de test (JUnit/Mockito)
       shell: bash
-      run: mvn -B test
+      run: |
+        set -euo pipefail
+        libdir="$GITHUB_WORKSPACE/lib"
+        mkdir -p "$libdir"
+        echo "Descargando dependencias en $libdir"
+        curl -fL -o "$libdir/junit-platform-console-standalone-1.9.3.jar" https://repo1.maven.org/maven2/org/junit/platform/junit-platform-console-standalone/1.9.3/junit-platform-console-standalone-1.9.3.jar
+        curl -fL -o "$libdir/mockito-core-4.11.0.jar" https://repo1.maven.org/maven2/org/mockito/mockito-core/4.11.0/mockito-core-4.11.0.jar
+        curl -fL -o "$libdir/objenesis-3.2.jar" https://repo1.maven.org/maven2/org/objenesis/objenesis/3.2/objenesis-3.2.jar
+        curl -fL -o "$libdir/byte-buddy-1.12.22.jar" https://repo1.maven.org/maven2/net/bytebuddy/byte-buddy/1.12.22/byte-buddy-1.12.22.jar
+        curl -fL -o "$libdir/byte-buddy-agent-1.12.22.jar" https://repo1.maven.org/maven2/net/bytebuddy/byte-buddy-agent/1.12.22/byte-buddy-agent-1.12.22.jar
+
+    - name: Ejecutar script de tests
+      shell: bash
+      env:
+        TP_DESIGN_DEPS: $GITHUB_WORKSPACE/lib
+      run: |
+        set -euo pipefail
+        chmod +x run-tests.sh || true
+        ./run-tests.sh

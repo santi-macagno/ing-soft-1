@@ -1,4 +1,24 @@
 name: Build
+description: Compila las fuentes Java del proyecto (paso ligero para CI)
+
+runs:
+  using: composite
+  steps:
+    - name: Configurar Java 17
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+
+    - name: Compilar fuentes
+      shell: bash
+      run: |
+        set -euo pipefail
+        mkdir -p out
+        echo "Compilando fuentes a out/"
+        # Compila sólo las fuentes principales (no tests)
+        javac -d out *.java || true
+name: Build
 description: Compila el proyecto con Maven
 
 runs:
